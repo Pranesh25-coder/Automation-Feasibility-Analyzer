@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Feasibility Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Automation Feasibility Analyzer</h1>
+            <p class="subtitle">Analyze your workflow to determine automation potential</p>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <h2>Describe Your Workflow</h2>
+                <form id="analysisForm">
+                    <textarea 
+                        id="workflowInput" 
+                        placeholder="Enter a detailed description of your workflow. Include steps, tools, and decision points. Example: Our team manually exports data from CRM, consolidates it in Excel, validates it against our database, and sends reports to 5 stakeholders via email weekly."
+                        rows="6"
+                    ></textarea>
+                    <button type="submit" id="analyzeBtn" class="btn-primary">Analyze Automation</button>
+                </form>
+            </section>
+
+            <div id="resultContainer" class="result-container hidden">
+                <section class="result-section feasibility-section">
+                    <h2>Feasibility Assessment</h2>
+                    <div class="feasibility-badge" id="feasibilityBadge"></div>
+                </section>
+
+                <section class="result-section">
+                    <h3>Task Summary</h3>
+                    <p id="taskSummary"></p>
+                </section>
+
+                <section class="result-section">
+                    <h3>Analysis & Reasoning</h3>
+                    <p id="reason"></p>
+                </section>
+
+                <section class="result-section">
+                    <h3>Live Context Used</h3>
+                    <ul id="liveContextList" class="list-section"></ul>
+                </section>
+
+                <section class="result-section">
+                    <h3>Assumptions</h3>
+                    <ul id="assumptionsList" class="list-section"></ul>
+                </section>
+
+                <section class="result-section">
+                    <h3>Constraints & Risks</h3>
+                    <ul id="constraintsList" class="list-section"></ul>
+                </section>
+
+                <section id="alternativesSection" class="result-section hidden">
+                    <h3>Alternative Suggestions</h3>
+                    <ul id="alternativesList" class="list-section"></ul>
+                </section>
+
+                <section class="result-section">
+                    <h3>Recommended Tools</h3>
+                    <ul id="toolsList" class="list-section"></ul>
+                </section>
+
+                <section class="result-section">
+                    <h3>Automation Plan</h3>
+                    <ol id="planList" class="list-section"></ol>
+                </section>
+
+                <section class="result-section">
+                    <h3>Manual Work Reduction</h3>
+                    <p id="manualReduction"></p>
+                </section>
+
+                <section class="result-section">
+                    <h3>Validation & Monitoring</h3>
+                    <ul id="validationList" class="list-section"></ul>
+                </section>
+
+                <div id="actionButtonContainer" class="action-buttons">
+                    <button id="planBtn" class="btn-primary hidden">Create Detailed Plan</button>
+                    <button id="resetBtn" class="btn-secondary">New Analysis</button>
+                </div>
+            </div>
+
+            <div id="planContainer" class="plan-container hidden">
+                <section class="result-section plan-header">
+                    <h2>Detailed Automation Plan</h2>
+                    <p id="planApprovalMessage" class="approval-message">Please review the plan below. Once approved, we will generate the automation assets.</p>
+                </section>
+
+                <section class="result-section">
+                    <h3>Plan Title</h3>
+                    <p id="planTitle"></p>
+                </section>
+
+                <section class="result-section">
+                    <h3>Implementation Approach</h3>
+                    <p id="planApproach"></p>
+                </section>
+
+                <section class="result-section">
+                    <h3>Tool Selection</h3>
+                    <div id="toolSelectionDiv"></div>
+                </section>
+
+                <section class="result-section">
+                    <h3>Implementation Steps</h3>
+                    <div id="implementationStepsDiv"></div>
+                </section>
+
+                <section class="result-section">
+                    <h3>Data Flow</h3>
+                    <p id="planDataFlow"></p>
+                </section>
+
+                <section class="result-section">
+                    <h3>Trigger Mechanism</h3>
+                    <p id="planTrigger"></p>
+                </section>
+
+                <section class="result-section">
+                    <h3>Success Criteria</h3>
+                    <ul id="successCriteriaList" class="list-section"></ul>
+                </section>
+
+                <section class="result-section">
+                    <h3>Estimated Timeline</h3>
+                    <div id="timelineDiv"></div>
+                </section>
+
+                <section class="result-section">
+                    <h3>Risk Mitigation</h3>
+                    <div id="riskMitigationDiv"></div>
+                </section>
+
+                <section class="result-section">
+                    <h3>Monitoring & Rollback</h3>
+                    <p id="monitoringStrategy"></p>
+                    <p id="rollbackPlan"></p>
+                </section>
+
+                <section class="result-section plan-approval">
+                    <h3>Plan Review</h3>
+                    <textarea id="approvalNotes" placeholder="Add any notes or changes you'd like to make (optional)" rows="4"></textarea>
+                    <div class="approval-buttons">
+                        <button id="approvePlanBtn" class="btn-primary">Approve & Generate Assets</button>
+                        <button id="rejectPlanBtn" class="btn-secondary">Reject Plan</button>
+                    </div>
+                </section>
+            </div>
+
+            <div id="generationContainer" class="generation-container hidden">
+                <section class="result-section generation-header">
+                    <h2>Automation Assets Generated</h2>
+                    <p class="success-message">✓ Your automation assets have been successfully generated and ready to use!</p>
+                </section>
+
+                <section class="result-section">
+                    <h3>Generated Assets</h3>
+                    <div id="configTemplateDiv"></div>
+                </section>
+
+                <section class="result-section">
+                    <h3>n8n Workflows</h3>
+                    <ul id="dependenciesList" class="list-section"></ul>
+                </section>
+
+                <section class="result-section">
+                    <h3>Scheduler Instructions</h3>
+                    <div id="errorHandling" class="code-block"></div>
+                </section>
+
+                <section class="result-section">
+                    <h3>Deployment Instructions</h3>
+                    <ul id="deploymentChecklist" class="list-section"></ul>
+                </section>
+
+                <section class="result-section download-section">
+                    <h3>Download Assets</h3>
+                    <div class="download-buttons">
+                        <button id="downloadPythonBtn" class="btn-primary">📥 Download Python Script</button>
+                        <button id="downloadWorkflowBtn" class="btn-primary">📥 Download n8n Workflow</button>
+                        <button id="downloadSchedulerBtn" class="btn-primary">📥 Download Scheduler Config</button>
+                    </div>
+                </section>
+
+                <div class="action-buttons">
+                    <button id="newAnalysisBtn" class="btn-secondary">Analyze Another Workflow</button>
+                </div>
+            </div>
+
+            <div id="loadingContainer" class="loading-container hidden">
+                <div class="spinner"></div>
+                <p>Analyzing your workflow...</p>
+            </div>
+
+            <div id="errorContainer" class="error-container hidden">
+                <p id="errorMessage"></p>
+                <button id="errorDismissBtn" class="btn-secondary">Dismiss</button>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Backend API: http://localhost:5000</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
